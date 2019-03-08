@@ -42,7 +42,7 @@
             this.ChangePass_Cancel.Location = new System.Drawing.Point(236, 277);
             this.ChangePass_Cancel.Name = "ChangePass_Cancel";
             this.ChangePass_Cancel.Size = new System.Drawing.Size(75, 23);
-            this.ChangePass_Cancel.TabIndex = 10;
+            this.ChangePass_Cancel.TabIndex = 4;
             this.ChangePass_Cancel.Text = "Cancel";
             this.ChangePass_Cancel.UseVisualStyleBackColor = true;
             this.ChangePass_Cancel.Click += new System.EventHandler(this.ChangePass_Cancel_Click);
@@ -52,7 +52,7 @@
             this.ChangePass_OK.Location = new System.Drawing.Point(73, 277);
             this.ChangePass_OK.Name = "ChangePass_OK";
             this.ChangePass_OK.Size = new System.Drawing.Size(75, 23);
-            this.ChangePass_OK.TabIndex = 9;
+            this.ChangePass_OK.TabIndex = 3;
             this.ChangePass_OK.Text = "OK";
             this.ChangePass_OK.UseVisualStyleBackColor = true;
             this.ChangePass_OK.Click += new System.EventHandler(this.ChangePass_OK_Click);
@@ -63,7 +63,7 @@
             this.NewPasswordBox.Name = "NewPasswordBox";
             this.NewPasswordBox.PasswordChar = '*';
             this.NewPasswordBox.Size = new System.Drawing.Size(100, 20);
-            this.NewPasswordBox.TabIndex = 8;
+            this.NewPasswordBox.TabIndex = 2;
             this.NewPasswordBox.TextChanged += new System.EventHandler(this.NewPasswordBox_TextChanged);
             // 
             // label2
@@ -72,7 +72,7 @@
             this.label2.Location = new System.Drawing.Point(70, 161);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(77, 13);
-            this.label2.TabIndex = 7;
+            this.label2.TabIndex = 0;
             this.label2.Text = "New password";
             // 
             // label1
@@ -81,7 +81,7 @@
             this.label1.Location = new System.Drawing.Point(71, 56);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 13);
-            this.label1.TabIndex = 12;
+            this.label1.TabIndex = 0;
             this.label1.Text = "Old password";
             // 
             // OldPasswordBox
@@ -90,7 +90,7 @@
             this.OldPasswordBox.Name = "OldPasswordBox";
             this.OldPasswordBox.PasswordChar = '*';
             this.OldPasswordBox.Size = new System.Drawing.Size(100, 20);
-            this.OldPasswordBox.TabIndex = 13;
+            this.OldPasswordBox.TabIndex = 1;
             this.OldPasswordBox.TextChanged += new System.EventHandler(this.OldPasswordBox_TextChanged);
             // 
             // ChangePassword_Validation
@@ -103,7 +103,8 @@
             this.ChangePassword_Validation.Name = "ChangePassword_Validation";
             this.ChangePassword_Validation.ReadOnly = true;
             this.ChangePassword_Validation.Size = new System.Drawing.Size(294, 68);
-            this.ChangePassword_Validation.TabIndex = 14;
+            this.ChangePassword_Validation.TabIndex = 0;
+            this.ChangePassword_Validation.TabStop = false;
             // 
             // ChangePassword
             // 

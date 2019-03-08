@@ -24,8 +24,6 @@ namespace ProductsStore.BLL.Services
         public UserService(IUnitOfWork uow)
         {
             Database = uow;
-            // var provider = new DpapiDataProtectionProvider("ASP.NET Identity");
-            // Database.UserManager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(provider.Create("EmailConfirmation"));
         }
 
         public void CreateAdmin()

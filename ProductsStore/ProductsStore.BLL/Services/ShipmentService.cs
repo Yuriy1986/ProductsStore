@@ -22,5 +22,11 @@ namespace ProductsStore.BLL.Services
             Database.Dispose();
         }
 
+        public bool CreateShipment()
+        {
+            return Database.Shipments.CreateShipment();
+        }
+
+
     }
 }

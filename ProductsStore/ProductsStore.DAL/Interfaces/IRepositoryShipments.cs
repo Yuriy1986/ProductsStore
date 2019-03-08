@@ -6,6 +6,6 @@ namespace ProductsStore.DAL.Interfaces
 {
     public interface IRepositoryShipments
     {
-
+        bool CreateShipment();
     }
 }

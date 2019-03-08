@@ -63,7 +63,7 @@
             this.label2.Location = new System.Drawing.Point(70, 161);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(53, 13);
-            this.label2.TabIndex = 2;
+            this.label2.TabIndex = 0;
             this.label2.Text = "Password";
             // 
             // PasswordBox

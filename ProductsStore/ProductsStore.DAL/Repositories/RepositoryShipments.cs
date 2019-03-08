@@ -17,6 +17,11 @@ namespace ProductsStore.DAL.Repositories
             this.db = context;
         }
 
+        public bool CreateShipment()
+        {
+            return true;
+        }
+
 
     }
 }

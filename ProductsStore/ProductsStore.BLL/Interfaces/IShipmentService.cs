@@ -6,6 +6,8 @@ namespace ProductsStore.BLL.Interfaces
 {
     public interface IShipmentService : IDisposable
     {
+        bool CreateShipment();
+
 
     }
 }

@@ -9,7 +9,7 @@ namespace ProductsStore.DAL.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
-    //    IRepositoryShipments Shipments { get; }
+        IRepositoryShipments Shipments { get; }
 
         void CreateAdmin();
 

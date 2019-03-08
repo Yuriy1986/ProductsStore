@@ -160,6 +160,7 @@
             this.Register_Validation.ReadOnly = true;
             this.Register_Validation.Size = new System.Drawing.Size(323, 99);
             this.Register_Validation.TabIndex = 21;
+            this.Register_Validation.TabStop = false;
             // 
             // RegisterButton
             // 
@@ -399,6 +400,7 @@
             this.Edit_Validation.ReadOnly = true;
             this.Edit_Validation.Size = new System.Drawing.Size(191, 177);
             this.Edit_Validation.TabIndex = 40;
+            this.Edit_Validation.TabStop = false;
             // 
             // EditButton_Cancel
             // 
@@ -576,7 +578,7 @@
             this.ConfirmResetPasswordBox.Name = "ConfirmResetPasswordBox";
             this.ConfirmResetPasswordBox.PasswordChar = '*';
             this.ConfirmResetPasswordBox.Size = new System.Drawing.Size(143, 20);
-            this.ConfirmResetPasswordBox.TabIndex = 4;
+            this.ConfirmResetPasswordBox.TabIndex = 1;
             this.ConfirmResetPasswordBox.Validating += new System.ComponentModel.CancelEventHandler(this.ConfirmResetPasswordBox_Validating);
             // 
             // label11
@@ -602,7 +604,7 @@
             this.ResetPasswordButton_Cancel.Location = new System.Drawing.Point(354, 4);
             this.ResetPasswordButton_Cancel.Name = "ResetPasswordButton_Cancel";
             this.ResetPasswordButton_Cancel.Size = new System.Drawing.Size(75, 23);
-            this.ResetPasswordButton_Cancel.TabIndex = 2;
+            this.ResetPasswordButton_Cancel.TabIndex = 3;
             this.ResetPasswordButton_Cancel.Text = "Cancel";
             this.ResetPasswordButton_Cancel.UseVisualStyleBackColor = true;
             this.ResetPasswordButton_Cancel.Click += new System.EventHandler(this.ResetPasswordButton_Cancel_Click);
@@ -621,7 +623,7 @@
             this.ResetPasswordButtonOK.Location = new System.Drawing.Point(252, 4);
             this.ResetPasswordButtonOK.Name = "ResetPasswordButtonOK";
             this.ResetPasswordButtonOK.Size = new System.Drawing.Size(75, 23);
-            this.ResetPasswordButtonOK.TabIndex = 1;
+            this.ResetPasswordButtonOK.TabIndex = 2;
             this.ResetPasswordButtonOK.Text = "OK";
             this.ResetPasswordButtonOK.UseVisualStyleBackColor = true;
             this.ResetPasswordButtonOK.Click += new System.EventHandler(this.ResetPasswordButtonOK_Click);
@@ -640,7 +642,7 @@
             this.ResetPasswordButton.Location = new System.Drawing.Point(456, 38);
             this.ResetPasswordButton.Name = "ResetPasswordButton";
             this.ResetPasswordButton.Size = new System.Drawing.Size(109, 23);
-            this.ResetPasswordButton.TabIndex = 13;
+            this.ResetPasswordButton.TabIndex = 12;
             this.ResetPasswordButton.Text = "Reset password";
             this.ResetPasswordButton.UseVisualStyleBackColor = true;
             this.ResetPasswordButton.Click += new System.EventHandler(this.ResetPasswordButton_Click);
@@ -650,7 +652,7 @@
             this.DeleteButton.Location = new System.Drawing.Point(587, 38);
             this.DeleteButton.Name = "DeleteButton";
             this.DeleteButton.Size = new System.Drawing.Size(75, 23);
-            this.DeleteButton.TabIndex = 12;
+            this.DeleteButton.TabIndex = 13;
             this.DeleteButton.Text = "Delete";
             this.DeleteButton.UseVisualStyleBackColor = true;
             this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
