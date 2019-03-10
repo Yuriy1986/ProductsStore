@@ -16,14 +16,15 @@ namespace ProductsStore.WinForms
     public partial class Main : Form
     {
         IUserService UserService { get; }
+        IShipmentService ShipmentService { get; }
 
         bool Admin { get; set; }
         string LoginUser { get; set; }
         
-        public Main(IUserService userService)
+        public Main(IUserService userService, IShipmentService shipmentService)
         {
             UserService = userService;
-
+            ShipmentService = shipmentService;
             InitializeComponent();
         }
 
@@ -39,6 +40,8 @@ namespace ProductsStore.WinForms
             if (!Admin)
                 administeringToolStripMenuItem.Visible = false;
 
+             ShipmentsGrid.DataSource = ShipmentService.GetShipments();
+            ShipmentsGrid.AutoSize = true;
         }
 
         private void ChangePasswordToolStripMenuItem_MouseUp(object sender, MouseEventArgs e)
@@ -51,6 +54,12 @@ namespace ProductsStore.WinForms
         {
             Administering administering = new Administering(UserService);
             administering.ShowDialog();
+        }
+
+        private void CreateShipmentButton_Click(object sender, EventArgs e)
+        {
+            CreateShipment createShipment = new CreateShipment(ShipmentService, LoginUser);
+            createShipment.ShowDialog();
         }
     }
 }

@@ -34,8 +34,10 @@
             this.administeringToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ShipmentsGrid = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.CreateShipmentButton = new System.Windows.Forms.Button();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ShipmentsGrid)).BeginInit();
             this.panel1.SuspendLayout();
@@ -57,7 +59,9 @@
             // 
             this.menuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.changePasswordToolStripMenuItem,
-            this.administeringToolStripMenuItem});
+            this.administeringToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.exitToolStripMenuItem});
             this.menuToolStripMenuItem.Name = "menuToolStripMenuItem";
             this.menuToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.menuToolStripMenuItem.Text = "Menu";
@@ -65,14 +69,14 @@
             // changePasswordToolStripMenuItem
             // 
             this.changePasswordToolStripMenuItem.Name = "changePasswordToolStripMenuItem";
-            this.changePasswordToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.changePasswordToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.changePasswordToolStripMenuItem.Text = "Change password";
             this.changePasswordToolStripMenuItem.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ChangePasswordToolStripMenuItem_MouseUp);
             // 
             // administeringToolStripMenuItem
             // 
             this.administeringToolStripMenuItem.Name = "administeringToolStripMenuItem";
-            this.administeringToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.administeringToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.administeringToolStripMenuItem.Text = "Administering";
             this.administeringToolStripMenuItem.MouseUp += new System.Windows.Forms.MouseEventHandler(this.AdministeringToolStripMenuItem_MouseUp);
             // 
@@ -82,29 +86,20 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ShipmentsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ShipmentsGrid.Location = new System.Drawing.Point(0, 21);
+            this.ShipmentsGrid.Location = new System.Drawing.Point(0, 25);
             this.ShipmentsGrid.Name = "ShipmentsGrid";
-            this.ShipmentsGrid.Size = new System.Drawing.Size(800, 373);
+            this.ShipmentsGrid.Size = new System.Drawing.Size(800, 369);
             this.ShipmentsGrid.TabIndex = 1;
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.CreateShipmentButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 400);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(800, 50);
             this.panel1.TabIndex = 2;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(391, 15);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
@@ -114,6 +109,27 @@
             this.button2.TabIndex = 1;
             this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = true;
+            // 
+            // CreateShipmentButton
+            // 
+            this.CreateShipmentButton.Location = new System.Drawing.Point(391, 15);
+            this.CreateShipmentButton.Name = "CreateShipmentButton";
+            this.CreateShipmentButton.Size = new System.Drawing.Size(127, 23);
+            this.CreateShipmentButton.TabIndex = 0;
+            this.CreateShipmentButton.Text = "Create shipment";
+            this.CreateShipmentButton.UseVisualStyleBackColor = true;
+            this.CreateShipmentButton.Click += new System.EventHandler(this.CreateShipmentButton_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
             // 
             // Main
             // 
@@ -146,6 +162,8 @@
         private System.Windows.Forms.DataGridView ShipmentsGrid;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button CreateShipmentButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
     }
 }

@@ -21,7 +21,11 @@ namespace ProductsStore.DAL.Repositories
         {
             return true;
         }
-
+ 
+        public IEnumerable<Shipment> GetShipments()
+        {
+            return db.Shipments.Include(x=>x.Manager);
+        }
 
     }
 }

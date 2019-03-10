@@ -22,11 +22,32 @@ namespace ProductsStore.BLL.Services
             Database.Dispose();
         }
 
-        public bool CreateShipment()
+        public bool CreateShipment(DTOShipmentsViewModel dtoShipmentsViewModel)
         {
             return Database.Shipments.CreateShipment();
         }
 
+        public IEnumerable<DTOShipmentsViewModel> GetShipments()
+        {
+            var shipments = Database.Shipments.GetShipments();
 
+            List<DTOShipmentsViewModel> dtoShipmentsViewModel = new List<DTOShipmentsViewModel>();
+
+            foreach (var item in shipments)
+            {
+                dtoShipmentsViewModel.Add(new DTOShipmentsViewModel() {
+                    Id=item.Id,
+                    ShipmentDate=item.ShipmentDate,
+                    Company=item.Company,
+                    City=item.City,
+                    Country=item.Country,
+                    SurnameName=item.Manager.Surname+item.Manager.Name,
+                    Quantity=item.Quantity,
+                    Sum=item.Sum
+                });
+            }
+
+            return dtoShipmentsViewModel;
+        }
     }
 }

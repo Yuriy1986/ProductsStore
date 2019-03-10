@@ -60,6 +60,7 @@
     <Compile Include="DTO\DTOEditViewModel.cs" />
     <Compile Include="DTO\DTOLoginViewModel.cs" />
     <Compile Include="DTO\DTORegisterViewModel.cs" />
+    <Compile Include="DTO\DTOShipmentsViewModel.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Infrastructure\UserPasswordValidator.cs" />
     <Compile Include="Interfaces\IShipmentService.cs" />

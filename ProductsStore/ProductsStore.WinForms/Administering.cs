@@ -55,25 +55,19 @@ namespace ProductsStore.WinForms
 
         private void NameBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            OnlyLetterInTextbox(e);
+            Validation.OnlyLetterInTextbox(e);
         }
 
         private void SurnameBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            OnlyLetterInTextbox(e);
+            Validation.OnlyLetterInTextbox(e);
         }
 
         private void PatronymicBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            OnlyLetterInTextbox(e);
+            Validation.OnlyLetterInTextbox(e);
         }
 
-        private void OnlyLetterInTextbox(KeyPressEventArgs e)
-        {
-            char s = e.KeyChar;
-            if (Char.IsDigit(s) || Char.IsSymbol(s) || Char.IsSeparator(s) || Char.IsPunctuation(s))
-                e.Handled = true;
-        }
         // Register.
         private void RegisterButton_Click(object sender, EventArgs e)
         {
@@ -108,57 +102,29 @@ namespace ProductsStore.WinForms
             }
         }
 
-        private void ValidationInputs(TextBox textBox, Label validLabel)
-        {
-            if (textBox.Text.Trim() == "")
-            {
-                if (textBox.Name == "ResetPasswordBox")
-                    validLabel.Text = "The password is required.";
-                else if (textBox.Name.IndexOf("BoxEdit") != -1)
-                    validLabel.Text = "The " + textBox.Name.Replace("BoxEdit", " ") + "is required.";
-                else
-                    validLabel.Text = "The " + textBox.Name.Replace("Box", " ") + "is required.";
-                return;
-            }
-
-            if (textBox.Text.Length > 30)
-            {
-                if (textBox.Name == "ResetPasswordBox")
-                    validLabel.Text = "The password must be no more 30 characters long.";
-                else if (textBox.Name.IndexOf("BoxEdit") != -1)
-                    validLabel.Text = "The " + textBox.Name.Replace("BoxEdit", " ") + "must be no more 30 characters long.";
-                else
-                    validLabel.Text = "The " + textBox.Name.Replace("Box", " ") + "must be no more 30 characters long.";
-                return;
-            }
-
-            else
-                validLabel.Text = "";
-        }
-
         private void NameBox_Validating(object sender, CancelEventArgs e)
         {
-            ValidationInputs(NameBox, Name_Validation);
+            Validation.ValidationInputs(NameBox, Name_Validation);
         }
 
         private void SurnameBox_Validating(object sender, CancelEventArgs e)
         {
-            ValidationInputs(SurnameBox, Surname_Validation);
+            Validation.ValidationInputs(SurnameBox, Surname_Validation);
         }
 
         private void PatronymicBox_Validating(object sender, CancelEventArgs e)
         {
-            ValidationInputs(PatronymicBox, Patronymic_Validation);
+            Validation.ValidationInputs(PatronymicBox, Patronymic_Validation);
         }
 
         private void LoginBox_Validating(object sender, CancelEventArgs e)
         {
-            ValidationInputs(LoginBox, Login_Validation);
+            Validation.ValidationInputs(LoginBox, Login_Validation);
         }
 
         private void PasswordBox_Validating(object sender, CancelEventArgs e)
         {
-            ValidationInputs(PasswordBox, Password_Validation);
+            Validation.ValidationInputs(PasswordBox, Password_Validation);
         }
 
         private void ConfirmPasswordBox_Validating(object sender, CancelEventArgs e)
@@ -204,17 +170,17 @@ namespace ProductsStore.WinForms
 
         private void NameBoxEdit_KeyPress(object sender, KeyPressEventArgs e)
         {
-            OnlyLetterInTextbox(e);
+            Validation.OnlyLetterInTextbox(e);
         }
 
         private void SurnameBoxEdit_KeyPress(object sender, KeyPressEventArgs e)
         {
-            OnlyLetterInTextbox(e);
+            Validation.OnlyLetterInTextbox(e);
         }
 
         private void PatronymicBoxEdit_KeyPress(object sender, KeyPressEventArgs e)
         {
-            OnlyLetterInTextbox(e);
+            Validation.OnlyLetterInTextbox(e);
         }
 
         private void EditButton_OK_Click(object sender, EventArgs e)
@@ -269,22 +235,22 @@ namespace ProductsStore.WinForms
 
         private void NameBoxEdit_Validating(object sender, CancelEventArgs e)
         {
-            ValidationInputs(NameBoxEdit, NameBoxEdit_Validation);
+            Validation.ValidationInputs(NameBoxEdit, NameBoxEdit_Validation);
         }
 
         private void SurnameBoxEdit_Validating(object sender, CancelEventArgs e)
         {
-            ValidationInputs(SurnameBoxEdit, SurnameBoxEdit_Validation);
+            Validation.ValidationInputs(SurnameBoxEdit, SurnameBoxEdit_Validation);
         }
 
         private void PatronymicBoxEdit_Validating(object sender, CancelEventArgs e)
         {
-            ValidationInputs(PatronymicBoxEdit, PatronymicBoxEdit_Validation);
+            Validation.ValidationInputs(PatronymicBoxEdit, PatronymicBoxEdit_Validation);
         }
 
         private void LoginBoxEdit_Validating(object sender, CancelEventArgs e)
         {
-            ValidationInputs(LoginBoxEdit, LoginBoxEdit_Validation);
+            Validation.ValidationInputs(LoginBoxEdit, LoginBoxEdit_Validation);
         }
         #endregion
 
@@ -376,7 +342,7 @@ namespace ProductsStore.WinForms
 
         private void ResetPasswordBox_Validating(object sender, CancelEventArgs e)
         {
-            ValidationInputs(ResetPasswordBox, ResetPassword_Validation);
+            Validation.ValidationInputs(ResetPasswordBox, ResetPassword_Validation);
         }
 
         private void ConfirmResetPasswordBox_Validating(object sender, CancelEventArgs e)
