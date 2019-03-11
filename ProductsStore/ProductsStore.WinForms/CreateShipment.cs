@@ -1,6 +1,5 @@
 ﻿using ProductsStore.BLL.DTO;
 using ProductsStore.BLL.Interfaces;
-using ProductsStore.BLL.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -93,25 +92,19 @@ namespace ProductsStore.WinForms
                     Company = CompanyBox.Text,
                     City = CityBox.Text,
                     Country = CountryBox.Text,
+                    Login=LoginUser,
                     Quantity = Convert.ToInt32(QuantityBox.Text),
-                    Sum = Convert.ToDecimal(SumBox.Text)
+                    Sum = Convert.ToDecimal(SumBox.Text),
                 };
 
-                //var responce = UserService.Register(dtoRegisterViewModel);
-                //if (responce == null)
-                //{
-                //    MessageBox.Show("Registration successful");
-                //    NameBox.Text = "";
-                //    SurnameBox.Text = "";
-                //    PatronymicBox.Text = "";
-                //    LoginBox.Text = "";
-                //    PasswordBox.Text = "";
-                //    ConfirmPasswordBox.Text = "";
-                //    RoleBox.SelectedItem = "user";
-                //    Register_Validation.Text = "";
-                //    return;
-                //}
-                //Register_Validation.Text = responce;
+                var responce = ShipmentService.CreateShipment(dtoShipmentsViewModel);
+
+                if (responce == null)
+                {
+                    MessageBox.Show("Shipment was added");
+                    Close();
+                }
+                CreateShipment_Validation.Text = responce;
             }
         }
 

@@ -185,6 +185,7 @@
             // 
             // CreateShipment_Validation
             // 
+            this.CreateShipment_Validation.BackColor = System.Drawing.SystemColors.Control;
             this.CreateShipment_Validation.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.CreateShipment_Validation.ForeColor = System.Drawing.Color.Red;
             this.CreateShipment_Validation.Location = new System.Drawing.Point(26, 328);
@@ -192,7 +193,7 @@
             this.CreateShipment_Validation.Name = "CreateShipment_Validation";
             this.CreateShipment_Validation.ReadOnly = true;
             this.CreateShipment_Validation.Size = new System.Drawing.Size(329, 72);
-            this.CreateShipment_Validation.TabIndex = 18;
+            this.CreateShipment_Validation.TabIndex = 0;
             this.CreateShipment_Validation.TabStop = false;
             // 
             // CreateShipment_OK

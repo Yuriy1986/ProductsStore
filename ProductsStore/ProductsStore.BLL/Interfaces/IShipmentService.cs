@@ -6,7 +6,7 @@ namespace ProductsStore.BLL.Interfaces
 {
     public interface IShipmentService : IDisposable
     {
-        bool CreateShipment(DTOShipmentsViewModel dtoShipmentsViewModel);
+        string CreateShipment(DTOShipmentsViewModel dtoShipmentsViewModel);
 
         IEnumerable<DTOShipmentsViewModel> GetShipments();
     }

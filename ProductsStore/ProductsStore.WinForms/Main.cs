@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ProductsStore.BLL.DTO;
 using ProductsStore.BLL.Interfaces;
-using ProductsStore.BLL.Services;
 
 namespace ProductsStore.WinForms
 {
@@ -42,6 +41,7 @@ namespace ProductsStore.WinForms
 
              ShipmentsGrid.DataSource = ShipmentService.GetShipments();
             ShipmentsGrid.AutoSize = true;
+            //ShipmentsGrid.Columns[0].Visible = false;
         }
 
         private void ChangePasswordToolStripMenuItem_MouseUp(object sender, MouseEventArgs e)

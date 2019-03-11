@@ -6,7 +6,7 @@ namespace ProductsStore.DAL.Interfaces
 {
     public interface IRepositoryShipments
     {
-        bool CreateShipment();
+        string CreateShipment(Shipment shipment, string login);
 
         IEnumerable<Shipment> GetShipments();
     }

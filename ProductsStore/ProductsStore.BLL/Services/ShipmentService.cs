@@ -22,9 +22,19 @@ namespace ProductsStore.BLL.Services
             Database.Dispose();
         }
 
-        public bool CreateShipment(DTOShipmentsViewModel dtoShipmentsViewModel)
+        public string CreateShipment(DTOShipmentsViewModel dtoShipmentsViewModel)
         {
-            return Database.Shipments.CreateShipment();
+            Shipment shipment = new Shipment
+            {
+                ShipmentDate=dtoShipmentsViewModel.ShipmentDate,
+                Company=dtoShipmentsViewModel.Company,
+                City=dtoShipmentsViewModel.City,
+                Country=dtoShipmentsViewModel.Country,                
+                Quantity=dtoShipmentsViewModel.Quantity,
+                Sum=dtoShipmentsViewModel.Sum
+            };
+
+            return Database.Shipments.CreateShipment(shipment, dtoShipmentsViewModel.Login);
         }
 
         public IEnumerable<DTOShipmentsViewModel> GetShipments()
@@ -41,7 +51,8 @@ namespace ProductsStore.BLL.Services
                     Company=item.Company,
                     City=item.City,
                     Country=item.Country,
-                    SurnameName=item.Manager.Surname+item.Manager.Name,
+                    SurnameName=item.Manager.Surname+" "+item.Manager.Name,
+                    Login=item.Manager.UserName,
                     Quantity=item.Quantity,
                     Sum=item.Sum
                 });

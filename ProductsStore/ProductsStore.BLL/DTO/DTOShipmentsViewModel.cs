@@ -20,6 +20,8 @@ namespace ProductsStore.BLL.DTO
 
         public string SurnameName { get; set; }
 
+        public string Login { get; set; }
+
         public int Quantity { get; set; }
 
         public decimal Sum { get; set; }
