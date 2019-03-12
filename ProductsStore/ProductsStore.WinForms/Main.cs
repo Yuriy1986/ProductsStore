@@ -56,10 +56,36 @@ namespace ProductsStore.WinForms
             administering.ShowDialog();
         }
 
+        private void ExitToolStripMenuItem_MouseUp(object sender, MouseEventArgs e)
+        {
+            Close();
+        }
+
+        private void Main_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!AnswerBeforeClose())
+                e.Cancel = true;
+        }
+
+        private bool AnswerBeforeClose()
+        {
+            DialogResult result = MessageBox.Show("Are you sure you want to exit", "", MessageBoxButtons.OKCancel);
+            if (result == DialogResult.OK)
+                return true;
+            return false;
+        }
+
         private void CreateShipmentButton_Click(object sender, EventArgs e)
         {
             CreateShipment createShipment = new CreateShipment(ShipmentService, LoginUser);
             createShipment.ShowDialog();
         }
+
+        private void DeleteShipmentButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }

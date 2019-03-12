@@ -15,6 +15,8 @@ namespace ProductsStore.DAL.Entities
 
         public string Patronymic { get; set; }
 
+        public bool Deleted { get; set; } = false;
+
         public ICollection<Shipment> Shipments { get; set; }
 
         public Manager()

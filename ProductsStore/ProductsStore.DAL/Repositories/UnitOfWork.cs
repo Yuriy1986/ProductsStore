@@ -68,7 +68,7 @@ namespace ProductsStore.DAL.Repositories
 
         public IEnumerable<string> GetAllLogins()
         {
-            return db.Users.Select(x => x.UserName).ToList();
+            return db.Users.Where(x=>x.Deleted==false).Select(x => x.UserName).ToList();
         }
 
         public string Login(string login, string password)
@@ -223,7 +223,23 @@ namespace ProductsStore.DAL.Repositories
             var userCurrent = db.Users.FirstOrDefault(x => x.UserName == login);
             if(userCurrent!=null)
             {
-                var fff = userCurrent.Shipments;
+                // If mamager maked shipments.
+                if(db.Shipments.FirstOrDefault(x=>x.Manager.UserName==login)!=null)
+                {
+                    //db.Users.Remove(userCurrent);
+                    userCurrent.Deleted = true;
+                    db.Entry(userCurrent).State = EntityState.Modified;
+                    db.SaveChangesAsync();
+                    return "Manager got value deleted in database (manager maked shipments) .";
+                }
+                // If mamager didn`t make shipments.
+                else
+                {
+                    db.Users.Remove(userCurrent);
+                    db.Entry(userCurrent).State = EntityState.Deleted;
+                    db.SaveChangesAsync();
+                    return "Manager deleted in database (manager didn`t make shipments).";
+                }
             }
             return null;
         }

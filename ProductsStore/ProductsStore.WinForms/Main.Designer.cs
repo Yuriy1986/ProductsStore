@@ -32,12 +32,12 @@
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changePasswordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.administeringToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ShipmentsGrid = new System.Windows.Forms.DataGridView();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.CreateShipmentButton = new System.Windows.Forms.Button();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ShipmentsGrid = new System.Windows.Forms.DataGridView();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.DeleteShipmentButton = new System.Windows.Forms.Button();
+            this.CreateShipmentButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ShipmentsGrid)).BeginInit();
             this.panel1.SuspendLayout();
@@ -80,6 +80,18 @@
             this.administeringToolStripMenuItem.Text = "Administering";
             this.administeringToolStripMenuItem.MouseUp += new System.Windows.Forms.MouseEventHandler(this.AdministeringToolStripMenuItem_MouseUp);
             // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ExitToolStripMenuItem_MouseUp);
+            // 
             // ShipmentsGrid
             // 
             this.ShipmentsGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -93,7 +105,7 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.button2);
+            this.panel1.Controls.Add(this.DeleteShipmentButton);
             this.panel1.Controls.Add(this.CreateShipmentButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 400);
@@ -101,35 +113,26 @@
             this.panel1.Size = new System.Drawing.Size(800, 50);
             this.panel1.TabIndex = 2;
             // 
-            // button2
+            // DeleteShipmentButton
             // 
-            this.button2.Location = new System.Drawing.Point(551, 15);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
+            this.DeleteShipmentButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.DeleteShipmentButton.Location = new System.Drawing.Point(480, 15);
+            this.DeleteShipmentButton.Name = "DeleteShipmentButton";
+            this.DeleteShipmentButton.Size = new System.Drawing.Size(120, 23);
+            this.DeleteShipmentButton.TabIndex = 1;
+            this.DeleteShipmentButton.Text = "Delete shipment";
+            this.DeleteShipmentButton.UseVisualStyleBackColor = true;
+            this.DeleteShipmentButton.Click += new System.EventHandler(this.DeleteShipmentButton_Click);
             // 
             // CreateShipmentButton
             // 
-            this.CreateShipmentButton.Location = new System.Drawing.Point(391, 15);
+            this.CreateShipmentButton.Location = new System.Drawing.Point(200, 15);
             this.CreateShipmentButton.Name = "CreateShipmentButton";
-            this.CreateShipmentButton.Size = new System.Drawing.Size(127, 23);
+            this.CreateShipmentButton.Size = new System.Drawing.Size(120, 23);
             this.CreateShipmentButton.TabIndex = 0;
             this.CreateShipmentButton.Text = "Create shipment";
             this.CreateShipmentButton.UseVisualStyleBackColor = true;
             this.CreateShipmentButton.Click += new System.EventHandler(this.CreateShipmentButton_Click);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
             // 
             // Main
             // 
@@ -143,6 +146,7 @@
             this.Name = "Main";
             this.Text = "Accounting program";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.Load += new System.EventHandler(this.Main_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -161,7 +165,7 @@
         private System.Windows.Forms.ToolStripMenuItem administeringToolStripMenuItem;
         private System.Windows.Forms.DataGridView ShipmentsGrid;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button DeleteShipmentButton;
         private System.Windows.Forms.Button CreateShipmentButton;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
