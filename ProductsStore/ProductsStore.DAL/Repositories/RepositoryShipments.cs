@@ -54,6 +54,19 @@ namespace ProductsStore.DAL.Repositories
             return "Close this window and reset program.";
         }
 
+        public bool DeleteShipment(int idShipment)
+        {
+            var shipmentCurrent = db.Shipments.FirstOrDefault(x => x.Id==idShipment);
+            if(shipmentCurrent!=null)
+            {
+                db.Shipments.Remove(shipmentCurrent);
+                db.Entry(shipmentCurrent).State = EntityState.Deleted;
+                db.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+
         public void SaveShipment(Shipment shipment, Manager userCurrent)
         {
             db.Shipments.Add(shipment);

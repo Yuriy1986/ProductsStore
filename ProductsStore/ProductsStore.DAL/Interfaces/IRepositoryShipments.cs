@@ -8,6 +8,8 @@ namespace ProductsStore.DAL.Interfaces
     {
         string CreateShipment(Shipment shipment, string login);
 
+        bool DeleteShipment(int idShipment);
+        
         IEnumerable<Shipment> GetShipments();
     }
 }

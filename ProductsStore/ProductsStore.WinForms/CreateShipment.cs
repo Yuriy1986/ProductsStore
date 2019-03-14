@@ -102,6 +102,7 @@ namespace ProductsStore.WinForms
                 if (responce == null)
                 {
                     MessageBox.Show("Shipment was added");
+                    DialogResult = DialogResult.OK;
                     Close();
                 }
                 CreateShipment_Validation.Text = responce;

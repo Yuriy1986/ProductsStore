@@ -3,7 +3,7 @@ using ProductsStore.DAL.Entities;
 using ProductsStore.BLL.Interfaces;
 using ProductsStore.DAL.Interfaces;
 using System.Collections.Generic;
-//using AutoMapper;
+using System.Data;
 
 namespace ProductsStore.BLL.Services
 {
@@ -15,7 +15,7 @@ namespace ProductsStore.BLL.Services
         {
             Database = uow;
         }
-        
+
 
         public void Dispose()
         {
@@ -26,15 +26,20 @@ namespace ProductsStore.BLL.Services
         {
             Shipment shipment = new Shipment
             {
-                ShipmentDate=dtoShipmentsViewModel.ShipmentDate,
-                Company=dtoShipmentsViewModel.Company,
-                City=dtoShipmentsViewModel.City,
-                Country=dtoShipmentsViewModel.Country,                
-                Quantity=dtoShipmentsViewModel.Quantity,
-                Sum=dtoShipmentsViewModel.Sum
+                ShipmentDate = dtoShipmentsViewModel.ShipmentDate,
+                Company = dtoShipmentsViewModel.Company,
+                City = dtoShipmentsViewModel.City,
+                Country = dtoShipmentsViewModel.Country,
+                Quantity = dtoShipmentsViewModel.Quantity,
+                Sum = dtoShipmentsViewModel.Sum
             };
 
             return Database.Shipments.CreateShipment(shipment, dtoShipmentsViewModel.Login);
+        }
+
+        public bool DeleteShipment(int idShipment)
+        {
+            return Database.Shipments.DeleteShipment(idShipment);
         }
 
         public IEnumerable<DTOShipmentsViewModel> GetShipments()
@@ -57,7 +62,6 @@ namespace ProductsStore.BLL.Services
                     Sum=item.Sum
                 });
             }
-
             return dtoShipmentsViewModel;
         }
     }

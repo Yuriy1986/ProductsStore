@@ -8,6 +8,8 @@ namespace ProductsStore.BLL.Interfaces
     {
         string CreateShipment(DTOShipmentsViewModel dtoShipmentsViewModel);
 
+        bool DeleteShipment(int idShipment);
+        
         IEnumerable<DTOShipmentsViewModel> GetShipments();
     }
 }

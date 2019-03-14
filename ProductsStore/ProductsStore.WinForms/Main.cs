@@ -19,7 +19,7 @@ namespace ProductsStore.WinForms
 
         bool Admin { get; set; }
         string LoginUser { get; set; }
-        
+
         public Main(IUserService userService, IShipmentService shipmentService)
         {
             UserService = userService;
@@ -30,7 +30,7 @@ namespace ProductsStore.WinForms
         private void Main_Load(object sender, EventArgs e)
         {
             Login login = new Login(UserService);
-            if(login.ShowDialog() !=DialogResult.OK)
+            if (login.ShowDialog() != DialogResult.OK)
                 this.Close();
 
             Admin = login.Admin;
@@ -38,10 +38,8 @@ namespace ProductsStore.WinForms
             menuStrip1.Visible = true;
             if (!Admin)
                 administeringToolStripMenuItem.Visible = false;
-
-             ShipmentsGrid.DataSource = ShipmentService.GetShipments();
-            ShipmentsGrid.AutoSize = true;
-            //ShipmentsGrid.Columns[0].Visible = false;
+            ShipmentsGrid.DataSource = ShipmentService.GetShipments();
+            SetupGrid();
         }
 
         private void ChangePasswordToolStripMenuItem_MouseUp(object sender, MouseEventArgs e)
@@ -75,17 +73,99 @@ namespace ProductsStore.WinForms
             return false;
         }
 
+        private void SetupGrid()
+        {
+            ShipmentsGrid.Columns["ShipmentDate"].HeaderText = "Date";
+            ShipmentsGrid.Columns["SurnameName"].HeaderText = "Surname name";
+            ShipmentsGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            ShipmentsGrid.Columns["Id"].Visible = false;
+            ShipmentsGrid.Columns["Login"].Visible = false;
+        }
+
         private void CreateShipmentButton_Click(object sender, EventArgs e)
         {
             CreateShipment createShipment = new CreateShipment(ShipmentService, LoginUser);
-            createShipment.ShowDialog();
+            if (createShipment.ShowDialog() == DialogResult.OK)
+                UpdateShipmentsButton.PerformClick();
         }
 
         private void DeleteShipmentButton_Click(object sender, EventArgs e)
         {
+            // Delete shipment can only owner (manager).
+            if (ShipmentsGrid.CurrentRow.Cells["Login"].Value.ToString() == LoginUser)
+            {
+                DialogResult result = MessageBox.Show("Are you sure you want to delete shipment", "", MessageBoxButtons.OKCancel);
+                if (result == DialogResult.OK)
+                {
+                    if(ShipmentService.DeleteShipment(int.Parse(ShipmentsGrid.CurrentRow.Cells["Id"].Value.ToString())))
+                    {
+                        UpdateShipmentsButton.PerformClick();
+                        MessageBox.Show("Shipment deleted");
+                    }
+                }
+            }
+        }
+
+        private void UpdateShipments_Click(object sender, EventArgs e)
+        {
+            ShipmentsGrid.DataSource = null;
+            ShipmentsGrid.DataSource = ShipmentService.GetShipments();
+            SetupGrid();
+        }
+
+        #region Groupbox
+        private void DateCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Grouping();
+        }
+
+        private void CompanyCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Grouping();
+        }
+
+        private void CityCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Grouping();
+        }
+
+        private void CountryCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Grouping();
+        }
+
+        private void SurnameCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Grouping();
+        }
+
+        private void Grouping()
+        {
+            if(DateCheckBox.Checked || CompanyCheckBox.Checked || CityCheckBox.Checked || CountryCheckBox.Checked || SurnameCheckBox.Checked)
+            {
+                GroupButton.Visible = true;
+                CancelGroupButton.Visible = true;
+                ShipmentsGrid.Enabled = false;
+                MainPanel.Enabled = false;
+            }
+            else
+            {
+                GroupButton.Visible = false;
+                CancelGroupButton.Visible = false;
+                ShipmentsGrid.Enabled = true;
+                MainPanel.Enabled = true;
+            }
+        }
+
+        private void GroupButton_Click(object sender, EventArgs e)
+        {
 
         }
 
+        private void CancelGroupButton_Click(object sender, EventArgs e)
+        {
 
+        }
+        #endregion
     }
 }
