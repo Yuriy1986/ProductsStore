@@ -10,6 +10,6 @@ namespace ProductsStore.BLL.Interfaces
 
         bool DeleteShipment(int idShipment);
         
-        IEnumerable<DTOShipmentsViewModel> GetShipments();
+        IEnumerable<DTOShipmentsViewModel> GetShipments(DTOGroupingShipsmentsViewModel dtoGroupingShipsmentsViewModel=null);
     }
 }

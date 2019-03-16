@@ -10,6 +10,6 @@ namespace ProductsStore.DAL.Interfaces
 
         bool DeleteShipment(int idShipment);
         
-        IEnumerable<Shipment> GetShipments();
+        IEnumerable<Shipment> GetShipments(bool Date=false, bool Company = false, bool City = false, bool Country = false, bool Surname = false);
     }
 }

@@ -42,9 +42,14 @@ namespace ProductsStore.BLL.Services
             return Database.Shipments.DeleteShipment(idShipment);
         }
 
-        public IEnumerable<DTOShipmentsViewModel> GetShipments()
+        public IEnumerable<DTOShipmentsViewModel> GetShipments(DTOGroupingShipsmentsViewModel dtoGroupingShipsmentsViewModel=null)
         {
-            var shipments = Database.Shipments.GetShipments();
+            IEnumerable<Shipment> shipments;
+            if (dtoGroupingShipsmentsViewModel == null)
+               shipments = Database.Shipments.GetShipments();
+            else
+               shipments = Database.Shipments.GetShipments(dtoGroupingShipsmentsViewModel.Date, dtoGroupingShipsmentsViewModel.Company, dtoGroupingShipsmentsViewModel.City,
+            dtoGroupingShipsmentsViewModel.Country, dtoGroupingShipsmentsViewModel.Surname);
 
             List<DTOShipmentsViewModel> dtoShipmentsViewModel = new List<DTOShipmentsViewModel>();
 

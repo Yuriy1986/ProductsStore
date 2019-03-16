@@ -58,6 +58,7 @@
     <Compile Include="DTO\DTOChangePasswordAdminViewModel.cs" />
     <Compile Include="DTO\DTOChangePasswordViewModel.cs" />
     <Compile Include="DTO\DTOEditViewModel.cs" />
+    <Compile Include="DTO\DTOGroupingShipsmentsViewModel.cs" />
     <Compile Include="DTO\DTOLoginViewModel.cs" />
     <Compile Include="DTO\DTORegisterViewModel.cs" />
     <Compile Include="DTO\DTOShipmentsViewModel.cs" />

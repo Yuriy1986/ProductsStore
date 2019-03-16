@@ -97,7 +97,7 @@ namespace ProductsStore.WinForms
                 DialogResult result = MessageBox.Show("Are you sure you want to delete shipment", "", MessageBoxButtons.OKCancel);
                 if (result == DialogResult.OK)
                 {
-                    if(ShipmentService.DeleteShipment(int.Parse(ShipmentsGrid.CurrentRow.Cells["Id"].Value.ToString())))
+                    if (ShipmentService.DeleteShipment(int.Parse(ShipmentsGrid.CurrentRow.Cells["Id"].Value.ToString())))
                     {
                         UpdateShipmentsButton.PerformClick();
                         MessageBox.Show("Shipment deleted");
@@ -106,10 +106,23 @@ namespace ProductsStore.WinForms
             }
         }
 
-        private void UpdateShipments_Click(object sender, EventArgs e)
+        private void UpdateShipments_Click(object sender, EventArgs e)/////////////////////////////////////////////////
         {
+            DTOGroupingShipsmentsViewModel dtoGroupingShipsmentsViewModel = new DTOGroupingShipsmentsViewModel();
+
+            if (DateCheckBox.Checked || CompanyCheckBox.Checked || CityCheckBox.Checked || CountryCheckBox.Checked || SurnameCheckBox.Checked)
+            {
+                dtoGroupingShipsmentsViewModel.Date = DateCheckBox.Checked;
+                dtoGroupingShipsmentsViewModel.Company = CompanyCheckBox.Checked;
+                dtoGroupingShipsmentsViewModel.City = CityCheckBox.Checked;
+                dtoGroupingShipsmentsViewModel.Country = CountryCheckBox.Checked;
+                dtoGroupingShipsmentsViewModel.Surname = SurnameCheckBox.Checked;
+            }
+            else
+                dtoGroupingShipsmentsViewModel = null;
+
             ShipmentsGrid.DataSource = null;
-            ShipmentsGrid.DataSource = ShipmentService.GetShipments();
+            ShipmentsGrid.DataSource = ShipmentService.GetShipments(dtoGroupingShipsmentsViewModel);
             SetupGrid();
         }
 
@@ -141,7 +154,7 @@ namespace ProductsStore.WinForms
 
         private void Grouping()
         {
-            if(DateCheckBox.Checked || CompanyCheckBox.Checked || CityCheckBox.Checked || CountryCheckBox.Checked || SurnameCheckBox.Checked)
+            if (DateCheckBox.Checked || CompanyCheckBox.Checked || CityCheckBox.Checked || CountryCheckBox.Checked || SurnameCheckBox.Checked)
             {
                 GroupButton.Visible = true;
                 CancelGroupButton.Visible = true;
@@ -154,17 +167,33 @@ namespace ProductsStore.WinForms
                 CancelGroupButton.Visible = false;
                 ShipmentsGrid.Enabled = true;
                 MainPanel.Enabled = true;
+
+                UpdateShipmentsButton.PerformClick();
             }
         }
 
         private void GroupButton_Click(object sender, EventArgs e)
         {
+            GroupButton.Visible = false;
 
+            UpdateShipmentsButton.PerformClick();
         }
 
         private void CancelGroupButton_Click(object sender, EventArgs e)
         {
+            DateCheckBox.Checked = false;
+            CompanyCheckBox.Checked = false;
+            CityCheckBox.Checked = false;
+            CountryCheckBox.Checked = false;
+            SurnameCheckBox.Checked = false;
 
+            GroupButton.Visible = false;
+            CancelGroupButton.Visible = false;
+
+            ShipmentsGrid.Enabled = true;
+            MainPanel.Enabled = true;
+
+            UpdateShipmentsButton.PerformClick();
         }
         #endregion
     }

@@ -75,9 +75,18 @@ namespace ProductsStore.DAL.Repositories
             db.SaveChangesAsync();
         }
 
-        public IEnumerable<Shipment> GetShipments()
+        public IEnumerable<Shipment> GetShipments(bool Date = false, bool Company = false, bool City = false, bool Country = false, bool Surname = false)
         {
-            return db.Shipments.Include(x => x.Manager);
+            if(!Date && !Company && !City && !Country && !Surname)
+                return db.Shipments.Include(x => x.Manager);
+
+            var query = "SELECT AspNetUsers.Id, Sum(Shipments.Quantity),Sum(Shipments.Sum) FROM Shipments INNER JOIN AspNetUsers ON Shipments.Manager_Id = AspNetUsers.Id GROUP BY AspNetUsers.Id";
+            var comps = db.Database.SqlQuery<Shipment>(query);
+            return comps;
+            //var query = db.Shipments.Select(x => new{ ShipmentDate=x.ShipmentDate, Company=x.Company });
+
+            // string query = "SELECT ";
+
         }
 
     }
