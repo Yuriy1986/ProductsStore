@@ -15,7 +15,6 @@ namespace ProductsStore.WinForms
     public partial class CreateShipment : Form
     {
         IShipmentService ShipmentService { get; }
-
         string LoginUser { get; }
 
         public CreateShipment(IShipmentService shipmentService, string loginUser)
@@ -96,7 +95,7 @@ namespace ProductsStore.WinForms
                     Quantity = Convert.ToInt32(QuantityBox.Text),
                     Sum = Convert.ToDecimal(SumBox.Text),
                 };
-
+                 
                 var responce = ShipmentService.CreateShipment(dtoShipmentsViewModel);
 
                 if (responce == null)

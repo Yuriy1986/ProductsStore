@@ -7,6 +7,6 @@ namespace ProductsStore.BLL.DTO
         public bool Company { get; set; } = false;
         public bool City { get; set; } = false;
         public bool Country { get; set; } = false;
-        public bool Surname { get; set; } = false;
+        public bool SurnameName { get; set; } = false;
     }
 }

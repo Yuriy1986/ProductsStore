@@ -50,7 +50,7 @@ namespace ProductsStore.BLL.Services
                 shipments = Database.Shipments.GetShipments();
             else
                 shipments = Database.Shipments.GetShipments(dtoGroupingShipsmentsViewModel.Date, dtoGroupingShipsmentsViewModel.Company, dtoGroupingShipsmentsViewModel.City,
-             dtoGroupingShipsmentsViewModel.Country, dtoGroupingShipsmentsViewModel.Surname);
+             dtoGroupingShipsmentsViewModel.Country, dtoGroupingShipsmentsViewModel.SurnameName);
 
             List<DTOShipmentsViewModel> dtoShipmentsViewModel = new List<DTOShipmentsViewModel>();
 

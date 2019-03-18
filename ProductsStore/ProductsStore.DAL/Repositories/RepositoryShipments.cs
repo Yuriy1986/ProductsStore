@@ -77,11 +77,11 @@ namespace ProductsStore.DAL.Repositories
             db.SaveChangesAsync();
         }
 
-        public IEnumerable<ModelShipments> GetShipments(bool Date = false, bool Company = false, bool City = false, bool Country = false, bool Surname = false)
+        public IEnumerable<ModelShipments> GetShipments(bool Date = false, bool Company = false, bool City = false, bool Country = false, bool SurnameName = false)
         {
             List<ModelShipments> modelShipments;
 
-            if (!Date && !Company && !City && !Country && !Surname)
+            if (!Date && !Company && !City && !Country && !SurnameName)
             {
                 string query = "SELECT S.Id, S.ShipmentDate,S.Company,S.City,S.Country, A.Surname+' '+A.Name as SurnameName, A.UserName as Login, S.Quantity,S.Sum FROM Shipments S INNER JOIN AspNetUsers A ON S.Manager_Id = A.Id";
                 modelShipments = db.Database.SqlQuery<ModelShipments>(query).ToList();
@@ -111,9 +111,10 @@ namespace ProductsStore.DAL.Repositories
                     queryBegin.Append("S.Country, ");
                     queryEnd.Append("S.Country,");
                 }
-                if (Surname)
+                if (SurnameName)
                 {
-
+                    queryBegin.Append("A.Surname+' '+A.Name as SurnameName, ");
+                    queryEnd.Append("A.Surname+' '+A.Name,");
                 }
                 string query = queryBegin.Append("Sum(S.Quantity) as Quantity,Sum(S.Sum) as Sum").ToString() + queryEnd.Remove(queryEnd.Length-1,1).ToString();
                 modelShipments = db.Database.SqlQuery<ModelShipments>(query).ToList();

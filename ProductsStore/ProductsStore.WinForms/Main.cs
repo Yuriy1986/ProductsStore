@@ -39,6 +39,7 @@ namespace ProductsStore.WinForms
             if (!Admin)
                 administeringToolStripMenuItem.Visible = false;
             ShipmentsGrid.EnableHeadersVisualStyles = false;
+            ShipmentsGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             ShipmentsGrid.DataSource = ShipmentService.GetShipments();
             SetupGrid();
         }
@@ -78,7 +79,6 @@ namespace ProductsStore.WinForms
         {
             ShipmentsGrid.Columns["ShipmentDate"].HeaderText = "Date";
             ShipmentsGrid.Columns["SurnameName"].HeaderText = "Surname name";
-            ShipmentsGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             ShipmentsGrid.Columns["Id"].Visible = false;
             ShipmentsGrid.Columns["Login"].Visible = false;
         }
@@ -98,16 +98,21 @@ namespace ProductsStore.WinForms
                 DialogResult result = MessageBox.Show("Are you sure you want to delete shipment", "", MessageBoxButtons.OKCancel);
                 if (result == DialogResult.OK)
                 {
-                    if (ShipmentService.DeleteShipment(int.Parse(ShipmentsGrid.CurrentRow.Cells["Id"].Value.ToString())))
+                    int idCurrent = int.Parse(ShipmentsGrid.CurrentRow.Cells["Id"].Value.ToString());
+                    if (ShipmentService.DeleteShipment(idCurrent))
                     {
-                        UpdateShipmentsButton.PerformClick();
+                        var shipmentsGridItems = (List<DTOShipmentsViewModel>)ShipmentsGrid.DataSource;
+                        shipmentsGridItems.RemoveAt(shipmentsGridItems.FindIndex(x => x.Id == idCurrent));
+                        ShipmentsGrid.DataSource = null;
+                        ShipmentsGrid.DataSource = shipmentsGridItems;
+                        SetupGrid();
                         MessageBox.Show("Shipment deleted");
                     }
                 }
             }
         }
 
-        private void UpdateShipments_Click(object sender, EventArgs e)/////////////////////////////////////////////////
+        private void UpdateShipments_Click(object sender, EventArgs e)
         {
             ShipmentsGrid.DataSource = null;
             ShipmentsGrid.DataSource = ShipmentService.GetShipments();
@@ -146,14 +151,12 @@ namespace ProductsStore.WinForms
             {
                 GroupButton.Visible = true;
                 CancelGroupButton.Visible = true;
-                ShipmentsGrid.Enabled = false;
                 MainPanel.Enabled = false;
             }
             else
             {
                 GroupButton.Visible = false;
                 CancelGroupButton.Visible = false;
-                ShipmentsGrid.Enabled = true;
                 MainPanel.Enabled = true;
 
                 UpdateShipmentsButton.PerformClick();
@@ -163,15 +166,13 @@ namespace ProductsStore.WinForms
         private void GroupButton_Click(object sender, EventArgs e)
         {
             GroupButton.Visible = false;
-
-            //UpdateShipmentsButton.PerformClick();
             DTOGroupingShipsmentsViewModel dtoGroupingShipsmentsViewModel = new DTOGroupingShipsmentsViewModel
             {
                 Date = DateCheckBox.Checked,
                 Company = CompanyCheckBox.Checked,
                 City = CityCheckBox.Checked,
                 Country = CountryCheckBox.Checked,
-                Surname = SurnameCheckBox.Checked
+                SurnameName = SurnameCheckBox.Checked
             };
                                  
             ShipmentsGrid.DataSource = null;
@@ -202,7 +203,6 @@ namespace ProductsStore.WinForms
             GroupButton.Visible = false;
             CancelGroupButton.Visible = false;
 
-            ShipmentsGrid.Enabled = true;
             MainPanel.Enabled = true;
 
             UpdateShipmentsButton.PerformClick();
