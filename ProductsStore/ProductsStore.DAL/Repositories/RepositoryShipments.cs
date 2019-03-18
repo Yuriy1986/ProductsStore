@@ -74,7 +74,9 @@ namespace ProductsStore.DAL.Repositories
             db.Shipments.Add(shipment);
             shipment.Manager = userCurrent;
             db.Entry(shipment).State = EntityState.Added;
-            db.SaveChangesAsync();
+            //db.SaveChangesAsync();
+            db.SaveChanges();
+            //var ff = shipment.Id;
         }
 
         public IEnumerable<ModelShipments> GetShipments(bool Date = false, bool Company = false, bool City = false, bool Country = false, bool SurnameName = false)

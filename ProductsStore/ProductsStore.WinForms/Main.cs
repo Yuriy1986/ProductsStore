@@ -19,6 +19,7 @@ namespace ProductsStore.WinForms
 
         bool Admin { get; set; }
         string LoginUser { get; set; }
+        bool AnswerClose { get; set; } = false;
 
         public Main(IUserService userService, IShipmentService shipmentService)
         {
@@ -33,6 +34,7 @@ namespace ProductsStore.WinForms
             if (login.ShowDialog() != DialogResult.OK)
                 this.Close();
 
+            AnswerClose = true;
             Admin = login.Admin;
             LoginUser = login.LoginUser;
             menuStrip1.Visible = true;
@@ -63,8 +65,11 @@ namespace ProductsStore.WinForms
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!AnswerBeforeClose())
-                e.Cancel = true;
+            if (AnswerClose)
+            {
+                if (!AnswerBeforeClose())
+                    e.Cancel = true;
+            }
         }
 
         private bool AnswerBeforeClose()
@@ -174,7 +179,7 @@ namespace ProductsStore.WinForms
                 Country = CountryCheckBox.Checked,
                 SurnameName = SurnameCheckBox.Checked
             };
-                                 
+
             ShipmentsGrid.DataSource = null;
             var responce = ShipmentService.GetShipments(dtoGroupingShipsmentsViewModel);
             ShipmentsGrid.DataSource = responce;
