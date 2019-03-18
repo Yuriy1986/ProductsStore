@@ -183,7 +183,8 @@ namespace ProductsStore.WinForms
             ShipmentsGrid.DataSource = null;
             var responce = ShipmentService.GetShipments(dtoGroupingShipsmentsViewModel);
             ShipmentsGrid.DataSource = responce;
-            if (responce.First().ShipmentDate == null)
+
+            if (responce.First().ShipmentDate.ToString() == "01.01.0001 0:00:00")
                 ShipmentsGrid.Columns["ShipmentDate"].Visible = false;
             if (responce.First().Company == null)
                 ShipmentsGrid.Columns["Company"].Visible = false;
@@ -195,6 +196,8 @@ namespace ProductsStore.WinForms
                 ShipmentsGrid.Columns["SurnameName"].Visible = false;
 
             SetupGrid();
+
+
         }
 
         private void CancelGroupButton_Click(object sender, EventArgs e)
