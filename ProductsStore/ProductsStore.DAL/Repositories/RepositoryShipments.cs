@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Text;
 using ProductsStore.DAL.EF;
 using ProductsStore.DAL.Entities;
 using ProductsStore.DAL.Interfaces;
+using ProductsStore.DAL.Models;
 
 namespace ProductsStore.DAL.Repositories
 {
@@ -56,8 +58,8 @@ namespace ProductsStore.DAL.Repositories
 
         public bool DeleteShipment(int idShipment)
         {
-            var shipmentCurrent = db.Shipments.FirstOrDefault(x => x.Id==idShipment);
-            if(shipmentCurrent!=null)
+            var shipmentCurrent = db.Shipments.FirstOrDefault(x => x.Id == idShipment);
+            if (shipmentCurrent != null)
             {
                 db.Shipments.Remove(shipmentCurrent);
                 db.Entry(shipmentCurrent).State = EntityState.Deleted;
@@ -75,19 +77,48 @@ namespace ProductsStore.DAL.Repositories
             db.SaveChangesAsync();
         }
 
-        public IEnumerable<Shipment> GetShipments(bool Date = false, bool Company = false, bool City = false, bool Country = false, bool Surname = false)
+        public IEnumerable<ModelShipments> GetShipments(bool Date = false, bool Company = false, bool City = false, bool Country = false, bool Surname = false)
         {
-            if(!Date && !Company && !City && !Country && !Surname)
-                return db.Shipments.Include(x => x.Manager);
+            List<ModelShipments> modelShipments;
 
-            var query = "SELECT AspNetUsers.Id, Sum(Shipments.Quantity),Sum(Shipments.Sum) FROM Shipments INNER JOIN AspNetUsers ON Shipments.Manager_Id = AspNetUsers.Id GROUP BY AspNetUsers.Id";
-            var comps = db.Database.SqlQuery<Shipment>(query);
-            return comps;
-            //var query = db.Shipments.Select(x => new{ ShipmentDate=x.ShipmentDate, Company=x.Company });
+            if (!Date && !Company && !City && !Country && !Surname)
+            {
+                string query = "SELECT S.Id, S.ShipmentDate,S.Company,S.City,S.Country, A.Surname+' '+A.Name as SurnameName, A.UserName as Login, S.Quantity,S.Sum FROM Shipments S INNER JOIN AspNetUsers A ON S.Manager_Id = A.Id";
+                modelShipments = db.Database.SqlQuery<ModelShipments>(query).ToList();
+                return modelShipments;
+            }
+            else
+            {
+                StringBuilder queryBegin = new StringBuilder("SELECT ");
+                StringBuilder queryEnd = new StringBuilder(" FROM Shipments S INNER JOIN AspNetUsers A ON S.Manager_Id=A.Id GROUP BY ");
+                if (Date)
+                {
+                    queryBegin.Append("CAST(S.ShipmentDate AS date) as ShipmentDate, ");
+                    queryEnd.Append("CAST(S.ShipmentDate AS date),");
+                }
+                if (Company)
+                {
+                    queryBegin.Append("S.Company, ");
+                    queryEnd.Append("S.Company,");
+                }
+                if (City)
+                {
+                    queryBegin.Append("S.City, ");
+                    queryEnd.Append("S.City,");
+                }
+                if (Country)
+                {
+                    queryBegin.Append("S.Country, ");
+                    queryEnd.Append("S.Country,");
+                }
+                if (Surname)
+                {
 
-            // string query = "SELECT ";
-
+                }
+                string query = queryBegin.Append("Sum(S.Quantity) as Quantity,Sum(S.Sum) as Sum").ToString() + queryEnd.Remove(queryEnd.Length-1,1).ToString();
+                modelShipments = db.Database.SqlQuery<ModelShipments>(query).ToList();
+                return modelShipments;
+            }
         }
-
     }
 }

@@ -4,6 +4,7 @@ using ProductsStore.BLL.Interfaces;
 using ProductsStore.DAL.Interfaces;
 using System.Collections.Generic;
 using System.Data;
+using ProductsStore.DAL.Models;
 
 namespace ProductsStore.BLL.Services
 {
@@ -44,27 +45,28 @@ namespace ProductsStore.BLL.Services
 
         public IEnumerable<DTOShipmentsViewModel> GetShipments(DTOGroupingShipsmentsViewModel dtoGroupingShipsmentsViewModel=null)
         {
-            IEnumerable<Shipment> shipments;
+            IEnumerable<ModelShipments> shipments;
             if (dtoGroupingShipsmentsViewModel == null)
-               shipments = Database.Shipments.GetShipments();
+                shipments = Database.Shipments.GetShipments();
             else
-               shipments = Database.Shipments.GetShipments(dtoGroupingShipsmentsViewModel.Date, dtoGroupingShipsmentsViewModel.Company, dtoGroupingShipsmentsViewModel.City,
-            dtoGroupingShipsmentsViewModel.Country, dtoGroupingShipsmentsViewModel.Surname);
+                shipments = Database.Shipments.GetShipments(dtoGroupingShipsmentsViewModel.Date, dtoGroupingShipsmentsViewModel.Company, dtoGroupingShipsmentsViewModel.City,
+             dtoGroupingShipsmentsViewModel.Country, dtoGroupingShipsmentsViewModel.Surname);
 
             List<DTOShipmentsViewModel> dtoShipmentsViewModel = new List<DTOShipmentsViewModel>();
 
             foreach (var item in shipments)
             {
-                dtoShipmentsViewModel.Add(new DTOShipmentsViewModel() {
-                    Id=item.Id,
-                    ShipmentDate=item.ShipmentDate,
-                    Company=item.Company,
-                    City=item.City,
-                    Country=item.Country,
-                    SurnameName=item.Manager.Surname+" "+item.Manager.Name,
-                    Login=item.Manager.UserName,
-                    Quantity=item.Quantity,
-                    Sum=item.Sum
+                dtoShipmentsViewModel.Add(new DTOShipmentsViewModel()
+                {
+                    Id = item.Id,
+                    ShipmentDate = item.ShipmentDate,
+                    Company = item.Company,
+                    City = item.City,
+                    Country = item.Country,
+                    SurnameName = item.SurnameName,
+                    Login = item.Login,
+                    Quantity = item.Quantity,
+                    Sum = item.Sum
                 });
             }
             return dtoShipmentsViewModel;

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changePasswordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -108,6 +109,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ShipmentsGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Red;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ShipmentsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.ShipmentsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ShipmentsGrid.Location = new System.Drawing.Point(0, 75);
             this.ShipmentsGrid.MultiSelect = false;
@@ -204,9 +213,9 @@
             this.SurnameCheckBox.AutoSize = true;
             this.SurnameCheckBox.Location = new System.Drawing.Point(332, 21);
             this.SurnameCheckBox.Name = "SurnameCheckBox";
-            this.SurnameCheckBox.Size = new System.Drawing.Size(68, 17);
+            this.SurnameCheckBox.Size = new System.Drawing.Size(99, 17);
             this.SurnameCheckBox.TabIndex = 4;
-            this.SurnameCheckBox.Text = "Surname";
+            this.SurnameCheckBox.Text = "Surname Name";
             this.SurnameCheckBox.UseVisualStyleBackColor = true;
             this.SurnameCheckBox.CheckedChanged += new System.EventHandler(this.SurnameCheckBox_CheckedChanged);
             // 

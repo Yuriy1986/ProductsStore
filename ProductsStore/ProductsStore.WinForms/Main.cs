@@ -38,6 +38,7 @@ namespace ProductsStore.WinForms
             menuStrip1.Visible = true;
             if (!Admin)
                 administeringToolStripMenuItem.Visible = false;
+            ShipmentsGrid.EnableHeadersVisualStyles = false;
             ShipmentsGrid.DataSource = ShipmentService.GetShipments();
             SetupGrid();
         }
@@ -108,21 +109,8 @@ namespace ProductsStore.WinForms
 
         private void UpdateShipments_Click(object sender, EventArgs e)/////////////////////////////////////////////////
         {
-            DTOGroupingShipsmentsViewModel dtoGroupingShipsmentsViewModel = new DTOGroupingShipsmentsViewModel();
-
-            if (DateCheckBox.Checked || CompanyCheckBox.Checked || CityCheckBox.Checked || CountryCheckBox.Checked || SurnameCheckBox.Checked)
-            {
-                dtoGroupingShipsmentsViewModel.Date = DateCheckBox.Checked;
-                dtoGroupingShipsmentsViewModel.Company = CompanyCheckBox.Checked;
-                dtoGroupingShipsmentsViewModel.City = CityCheckBox.Checked;
-                dtoGroupingShipsmentsViewModel.Country = CountryCheckBox.Checked;
-                dtoGroupingShipsmentsViewModel.Surname = SurnameCheckBox.Checked;
-            }
-            else
-                dtoGroupingShipsmentsViewModel = null;
-
             ShipmentsGrid.DataSource = null;
-            ShipmentsGrid.DataSource = ShipmentService.GetShipments(dtoGroupingShipsmentsViewModel);
+            ShipmentsGrid.DataSource = ShipmentService.GetShipments();
             SetupGrid();
         }
 
@@ -176,7 +164,31 @@ namespace ProductsStore.WinForms
         {
             GroupButton.Visible = false;
 
-            UpdateShipmentsButton.PerformClick();
+            //UpdateShipmentsButton.PerformClick();
+            DTOGroupingShipsmentsViewModel dtoGroupingShipsmentsViewModel = new DTOGroupingShipsmentsViewModel
+            {
+                Date = DateCheckBox.Checked,
+                Company = CompanyCheckBox.Checked,
+                City = CityCheckBox.Checked,
+                Country = CountryCheckBox.Checked,
+                Surname = SurnameCheckBox.Checked
+            };
+                                 
+            ShipmentsGrid.DataSource = null;
+            var responce = ShipmentService.GetShipments(dtoGroupingShipsmentsViewModel);
+            ShipmentsGrid.DataSource = responce;
+            if (responce.First().ShipmentDate == null)
+                ShipmentsGrid.Columns["ShipmentDate"].Visible = false;
+            if (responce.First().Company == null)
+                ShipmentsGrid.Columns["Company"].Visible = false;
+            if (responce.First().City == null)
+                ShipmentsGrid.Columns["City"].Visible = false;
+            if (responce.First().Country == null)
+                ShipmentsGrid.Columns["Country"].Visible = false;
+            if (responce.First().SurnameName == null)
+                ShipmentsGrid.Columns["SurnameName"].Visible = false;
+
+            SetupGrid();
         }
 
         private void CancelGroupButton_Click(object sender, EventArgs e)

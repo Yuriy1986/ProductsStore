@@ -61,6 +61,7 @@
     <Compile Include="Identity\ApplicationUserManager.cs" />
     <Compile Include="Interfaces\IRepositoryShipments.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Models\ModelShipments.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\RepositoryShipments.cs" />
     <Compile Include="Repositories\UnitOfWork.cs" />
