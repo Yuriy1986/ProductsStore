@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using ProductsStore.DAL.EF;
 using ProductsStore.DAL.Entities;
 using ProductsStore.DAL.Interfaces;
@@ -45,9 +46,9 @@ namespace ProductsStore.DAL.Repositories
             return modelShipments;
         }
 
-        public void SaveShipment()
+        public async Task SaveShipment()
         {
-            db.SaveChangesAsync();
+            await db.SaveChangesAsync();
         }
 
         public void DeleteShipment(Shipment shipmentCurrent)

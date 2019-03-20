@@ -3,6 +3,7 @@ using ProductsStore.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Threading.Tasks;
 
 namespace ProductsStore.DAL.Interfaces
 {
@@ -14,7 +15,7 @@ namespace ProductsStore.DAL.Interfaces
 
         ModelShipments CreateShipment(Shipment shipment, Manager userCurrent);
 
-        void SaveShipment();
+        Task SaveShipment();
 
         void DeleteShipment(Shipment shipmentCurrent);
 

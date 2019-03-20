@@ -9,8 +9,6 @@ using ProductsStore.DAL.Interfaces;
 using System;
 using System.Linq;
 using System.Security.Principal;
-//using Microsoft.Owin.Security.DataProtection;
-//using Microsoft.AspNet.Identity.Owin;
 using ProductsStore.DAL.Repositories;
 using System.Collections.Generic;
 using System.Text;

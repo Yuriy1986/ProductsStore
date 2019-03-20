@@ -66,10 +66,10 @@ namespace ProductsStore.DAL.Repositories
             return db.Users.FirstOrDefault(x => x.Name == name && x.Surname == surname && x.Patronymic == patronymic);
         }
 
-        public void SaveUser(Manager userCurrent, EntityState state)
+        public async Task SaveUser(Manager userCurrent, EntityState state)
         {
             db.Entry(userCurrent).State = state;
-            db.SaveChangesAsync();
+            await db.SaveChangesAsync();
         }
 
         public void DeleteUser(Manager userCurrent)

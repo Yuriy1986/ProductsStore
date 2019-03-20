@@ -20,8 +20,8 @@ namespace ProductsStore.DAL.Interfaces
         Manager GetManager(string login);
 
         Manager GetManager(string name, string surname, string patronymic);
-        
-        void SaveUser(Manager userCurrent, EntityState state);
+
+        Task SaveUser(Manager userCurrent, EntityState state);
 
         void DeleteUser(Manager userCurrent);
     }
