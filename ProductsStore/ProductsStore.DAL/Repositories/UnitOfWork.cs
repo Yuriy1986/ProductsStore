@@ -17,9 +17,9 @@ namespace ProductsStore.DAL.Repositories
     {
         readonly ApplicationDbContext db;
 
-        ApplicationUserManager UserManager { get; }
+        public ApplicationUserManager UserManager { get; }
 
-        ApplicationRoleManager RoleManager { get; }
+        public ApplicationRoleManager RoleManager { get; }
 
         RepositoryShipments repositoryShipments;
 
@@ -51,197 +51,30 @@ namespace ProductsStore.DAL.Repositories
             }
         }
 
-        public void CreateAdmin()
-        {
-            Manager admin = new Manager
-            {
-                Name = "Ivan",
-                Surname = "Ivanov",
-                Patronymic = "Ivanovich",
-                UserName = "administrator",
-                LockoutEnabled = false
-            };
-            string password = "Qwerty_123456789";
-            UserManager.CreateAsync(admin, password).Wait();
-            UserManager.AddToRoleAsync(admin.Id, "admin");
-        }
-
         public IEnumerable<string> GetAllLogins()
         {
             return db.Users.Where(x=>x.Deleted==false).Select(x => x.UserName).ToList();
         }
 
-        public string Login(string login, string password)
+        public Manager GetManager(string login)
         {
-            var userCurrent = db.Users.FirstOrDefault(x => x.UserName == login);
-
-            if (userCurrent.LockoutEnabled && userCurrent.LockoutEndDateUtc != null)
-                return "User is locked. For unlock contact your administrator.";
-            if (UserManager.CheckPassword(userCurrent, password))
-            {
-                if (!userCurrent.LockoutEnabled || userCurrent.AccessFailedCount > 0)
-                {
-                    if (userCurrent.AccessFailedCount != 3)
-                    {
-                        userCurrent.AccessFailedCount = 3;
-                        db.Entry(userCurrent).State = EntityState.Modified;
-                        db.SaveChanges();
-                    }
-                    return UserManager.GetRoles(userCurrent.Id).First();
-                }
-            }
-            else
-            {
-                if (userCurrent.LockoutEnabled)
-                {
-                    userCurrent.AccessFailedCount--;
-                    if (userCurrent.AccessFailedCount == 0)
-                        userCurrent.LockoutEndDateUtc = DateTime.Parse("01-01-2999");
-                    db.Entry(userCurrent).State = EntityState.Modified;
-                    db.SaveChangesAsync();
-                    return "Login or password incorrect. Input attempts: " + userCurrent.AccessFailedCount;
-                }
-                return "Login or password incorrect.";
-            }
-            return "Close this window and reset program.";
+            return db.Users.FirstOrDefault(x => x.UserName == login);
         }
 
-        public string ChangePassword(string login, string oldPassword, string newPassword)
+        public Manager GetManager(string name, string surname, string patronymic)
         {
-            var userCurrent = db.Users.FirstOrDefault(x => x.UserName == login);
-            if (userCurrent == null)
-                return "Close this window and reset program.";
-
-            var result = UserManager.ChangePassword(userCurrent.Id, oldPassword, newPassword);
-
-            if (result.Succeeded)
-                return null;
-            return result.Errors.First();
+            return db.Users.FirstOrDefault(x => x.Name == name && x.Surname == surname && x.Patronymic == patronymic);
         }
 
-        public string Register(Manager manager, string password, string role)
+        public void SaveUser(Manager userCurrent, EntityState state)
         {
-            var userCurrent = db.Users.FirstOrDefault(x => x.UserName == manager.UserName);
-
-            if (userCurrent == null)
-            {
-                var user = db.Users.FirstOrDefault(x => x.Name == manager.Name && x.Surname == manager.Surname && x.Patronymic == manager.Patronymic);
-                if (user != null)
-                    return "User with the same Name, Surname, Patronymic already exists.";
-
-                if (role == "admin")
-                    manager.LockoutEnabled = false;
-                else
-                    manager.LockoutEnabled = true;
-
-                manager.AccessFailedCount = 3;
-                var result = UserManager.Create(manager, password);
-                if (result.Succeeded)
-                {
-                    UserManager.AddToRoleAsync(manager.Id, role);
-                    return null;
-                }
-                return "Close this window and reset program.";
-            }
-            return "User with the same Login already exists.";
+            db.Entry(userCurrent).State = state;
+            db.SaveChangesAsync();
         }
 
-        public string ResetPassword(string login, string password)
+        public void DeleteUser(Manager userCurrent)
         {
-            var userCurrent = db.Users.FirstOrDefault(x => x.UserName == login);
-            if (userCurrent != null)
-            {
-                var result = UserManager.RemovePassword(userCurrent.Id);
-                if (result.Succeeded)
-                {
-                    UserManager.AddPassword(userCurrent.Id, password);
-                    userCurrent.AccessFailedCount = 3;
-                    userCurrent.LockoutEndDateUtc = null;
-                    db.Entry(userCurrent).State = EntityState.Modified;
-                    db.SaveChangesAsync();
-                    return null;
-                }
-            }
-            return "Close this window and reset program.";
-        }
-
-        public Manager GetInformation(string login, out string role)
-        {
-            var userCurrent = db.Users.FirstOrDefault(x => x.UserName == login);
-            if (userCurrent != null)
-            {
-                role = UserManager.GetRoles(userCurrent.Id).First();
-                return userCurrent;
-            }
-            role = "";
-            return null;
-        }
-
-        public string EditUser(Manager manager, string newLogin, string role)
-        {
-            var userCurrent = db.Users.FirstOrDefault(x => x.UserName == manager.UserName);
-            if (userCurrent != null)
-            {
-                Manager user;
-                if (newLogin != null)
-                {
-                    user = db.Users.FirstOrDefault(x => x.UserName == newLogin);
-                    if (user != null)
-                        return "User with the same Login already exists.";
-                }
-
-                user = db.Users.FirstOrDefault(x => x.Name == manager.Name && x.Surname == manager.Surname && x.Patronymic == manager.Patronymic);
-
-                if (user != null && user.UserName != userCurrent.UserName)
-                    return "User with the same Name, Surname, Patronymic already exists.";
-
-                userCurrent.Name = manager.Name;
-                userCurrent.Surname = manager.Surname;
-                userCurrent.Patronymic = manager.Patronymic;
-                if (newLogin != null)
-                    userCurrent.UserName = newLogin;
-                var roleOld = UserManager.GetRoles(userCurrent.Id).First();
-                if(roleOld!=role)
-                {
-                    if (role == "admin")
-                        userCurrent.LockoutEnabled = false;
-                    else    //user
-                        userCurrent.LockoutEnabled = true;
-                    UserManager.RemoveFromRole(userCurrent.Id, roleOld);
-                    UserManager.AddToRole(userCurrent.Id, role);
-                }
-
-                db.Entry(userCurrent).State = EntityState.Modified;
-                db.SaveChangesAsync();
-                return null;
-            }
-            return "Close this window and reset program.";
-        }
-
-        public string DeleteUser(string login)/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        {
-            var userCurrent = db.Users.FirstOrDefault(x => x.UserName == login);
-            if(userCurrent!=null)
-            {
-                // If mamager maked shipments.
-                if(db.Shipments.FirstOrDefault(x=>x.Manager.UserName==login)!=null)
-                {
-                    //db.Users.Remove(userCurrent);
-                    userCurrent.Deleted = true;
-                    db.Entry(userCurrent).State = EntityState.Modified;
-                    db.SaveChangesAsync();
-                    return "Manager got value deleted in database (manager maked shipments) .";
-                }
-                // If mamager didn`t make shipments.
-                else
-                {
-                    db.Users.Remove(userCurrent);
-                    db.Entry(userCurrent).State = EntityState.Deleted;
-                    db.SaveChangesAsync();
-                    return "Manager deleted in database (manager didn`t make shipments).";
-                }
-            }
-            return null;
+            db.Users.Remove(userCurrent);
         }
 
         public void Dispose()

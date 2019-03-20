@@ -4,6 +4,7 @@ using ProductsStore.DAL.Identity;
 using ProductsStore.DAL.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
 
 namespace ProductsStore.DAL.Interfaces
 {
@@ -11,23 +12,17 @@ namespace ProductsStore.DAL.Interfaces
     {
         IRepositoryShipments Shipments { get; }
 
-        void CreateAdmin();
+        ApplicationUserManager UserManager { get; }
+        ApplicationRoleManager RoleManager { get; }
 
         IEnumerable<string> GetAllLogins();
 
-        string Login(string login, string password);
+        Manager GetManager(string login);
 
-        string ChangePassword(string login, string oldPassword, string newPassword);
+        Manager GetManager(string name, string surname, string patronymic);
+        
+        void SaveUser(Manager userCurrent, EntityState state);
 
-        string Register(Manager manager, string password, string role);
-
-        string ResetPassword(string login, string password);
-
-        Manager GetInformation(string login, out string role);
-
-        string EditUser(Manager manager, string newLogin, string role);
-
-        string DeleteUser(string login);
-
+        void DeleteUser(Manager userCurrent);
     }
 }

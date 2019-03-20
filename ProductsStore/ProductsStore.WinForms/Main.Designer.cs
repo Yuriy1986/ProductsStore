@@ -124,6 +124,7 @@
             this.ShipmentsGrid.ReadOnly = true;
             this.ShipmentsGrid.Size = new System.Drawing.Size(800, 325);
             this.ShipmentsGrid.TabIndex = 1;
+            this.ShipmentsGrid.Visible = false;
             // 
             // MainPanel
             // 
@@ -135,6 +136,7 @@
             this.MainPanel.Name = "MainPanel";
             this.MainPanel.Size = new System.Drawing.Size(800, 50);
             this.MainPanel.TabIndex = 2;
+            this.MainPanel.Visible = false;
             // 
             // UpdateShipmentsButton
             // 
@@ -185,6 +187,7 @@
             this.GroupBox.TabIndex = 3;
             this.GroupBox.TabStop = false;
             this.GroupBox.Text = "Select columns for grouping";
+            this.GroupBox.Visible = false;
             // 
             // CancelGroupButton
             // 

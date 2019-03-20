@@ -34,6 +34,9 @@ namespace ProductsStore.WinForms
             if (login.ShowDialog() != DialogResult.OK)
                 this.Close();
 
+            GroupBox.Visible = true;
+            ShipmentsGrid.Visible = true;
+            MainPanel.Visible = true;
             AnswerClose = true;
             Admin = login.Admin;
             LoginUser = login.LoginUser;
@@ -92,7 +95,14 @@ namespace ProductsStore.WinForms
         {
             CreateShipment createShipment = new CreateShipment(ShipmentService, LoginUser);
             if (createShipment.ShowDialog() == DialogResult.OK)
-                UpdateShipmentsButton.PerformClick();
+            {
+                var shipmentsGridItems = (List<DTOShipmentsViewModel>)ShipmentsGrid.DataSource;
+                shipmentsGridItems.Add(createShipment.DtoShipmentsViewModel);
+                ShipmentsGrid.DataSource = null;
+                ShipmentsGrid.DataSource = shipmentsGridItems;
+                SetupGrid();
+                ShipmentsGrid.CurrentCell = ShipmentsGrid.Rows[ShipmentsGrid.Rows.Count-1].Cells["Sum"];
+            }
         }
 
         private void DeleteShipmentButton_Click(object sender, EventArgs e)
@@ -111,6 +121,7 @@ namespace ProductsStore.WinForms
                         ShipmentsGrid.DataSource = null;
                         ShipmentsGrid.DataSource = shipmentsGridItems;
                         SetupGrid();
+                        ShipmentsGrid.CurrentCell = ShipmentsGrid.Rows[0].Cells["Sum"];
                         MessageBox.Show("Shipment deleted");
                     }
                 }
@@ -122,6 +133,7 @@ namespace ProductsStore.WinForms
             ShipmentsGrid.DataSource = null;
             ShipmentsGrid.DataSource = ShipmentService.GetShipments();
             SetupGrid();
+            ShipmentsGrid.CurrentCell = ShipmentsGrid.Rows[0].Cells["Sum"];
         }
 
         #region Groupbox
@@ -196,8 +208,6 @@ namespace ProductsStore.WinForms
                 ShipmentsGrid.Columns["SurnameName"].Visible = false;
 
             SetupGrid();
-
-
         }
 
         private void CancelGroupButton_Click(object sender, EventArgs e)

@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="DTO\DTOChangePasswordAdminViewModel.cs" />
     <Compile Include="DTO\DTOChangePasswordViewModel.cs" />
+    <Compile Include="DTO\DTOCreateShipmentViewModel.cs" />
     <Compile Include="DTO\DTOEditViewModel.cs" />
     <Compile Include="DTO\DTOGroupingShipsmentsViewModel.cs" />
     <Compile Include="DTO\DTOLoginViewModel.cs" />

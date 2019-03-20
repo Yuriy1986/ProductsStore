@@ -2,15 +2,28 @@
 using ProductsStore.DAL.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace ProductsStore.DAL.Interfaces
 {
     public interface IRepositoryShipments
     {
-        string CreateShipment(Shipment shipment, string login);
+        DateTime MaxDateShipment(string login);
 
-        bool DeleteShipment(int idShipment);
+        decimal AverageSum(string login, int year, int month);
+
+        ModelShipments CreateShipment(Shipment shipment, Manager userCurrent);
+
+        void SaveShipment();
+
+        void DeleteShipment(Shipment shipmentCurrent);
+
+        Shipment GetShipment(string login);
+
+        Shipment GetShipment(string login, int year, int month);
+
+        Shipment GetShipment(int idShipment);
         
-        IEnumerable<ModelShipments> GetShipments(bool Date=false, bool Company = false, bool City = false, bool Country = false, bool SurnameName = false);
+        IEnumerable<ModelShipments> GetShipments(string query);
     }
 }

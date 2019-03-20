@@ -16,7 +16,8 @@ namespace ProductsStore.WinForms
     {
         IShipmentService ShipmentService { get; }
         string LoginUser { get; }
-
+        public DTOShipmentsViewModel DtoShipmentsViewModel { get; set; }
+        
         public CreateShipment(IShipmentService shipmentService, string loginUser)
         {
             ShipmentService = shipmentService;
@@ -85,7 +86,7 @@ namespace ProductsStore.WinForms
             ValidateChildren();
             if (Company_Validation.Text == "" && City_Validation.Text == "" && Country_Validation.Text == "" && Quantity_Validation.Text == "" && Sum_Validation.Text == "")
             {
-                DTOShipmentsViewModel dtoShipmentsViewModel = new DTOShipmentsViewModel
+                DtoShipmentsViewModel = new DTOShipmentsViewModel
                 {
                     ShipmentDate = DateTime.Now,
                     Company = CompanyBox.Text,
@@ -96,15 +97,17 @@ namespace ProductsStore.WinForms
                     Sum = Convert.ToDecimal(SumBox.Text),
                 };
                  
-                var responce = ShipmentService.CreateShipment(dtoShipmentsViewModel);
+                var responce = ShipmentService.CreateShipment(DtoShipmentsViewModel);
 
-                if (responce == null)
+                if (responce.Responce == null)
                 {
+                    DtoShipmentsViewModel.Id = responce.Id;
+                    DtoShipmentsViewModel.SurnameName = responce.SurnameName;
                     MessageBox.Show("Shipment was added");
                     DialogResult = DialogResult.OK;
                     Close();
                 }
-                CreateShipment_Validation.Text = responce;
+                CreateShipment_Validation.Text = responce.Responce;
             }
         }
 

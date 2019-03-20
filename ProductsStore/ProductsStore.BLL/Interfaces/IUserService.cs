@@ -12,12 +12,12 @@ namespace ProductsStore.BLL.Interfaces
 {
     public interface IUserService : IDisposable
     {
-        //Login.
-        void CreateAdmin();
+        //Login(only when creating a database) !!! 
+        void CreateAdmin();//
 
-        IEnumerable<string> GetAllLogins();
+        IEnumerable<string> GetAllLogins();//
         
-        string Login(DTOLoginViewModel dtoLoginViewModel);
+        string Login(DTOLoginViewModel dtoLoginViewModel);//
 
         string ChangePassword(DTOChangePasswordViewModel dtoChangePasswordViewModel);
 
