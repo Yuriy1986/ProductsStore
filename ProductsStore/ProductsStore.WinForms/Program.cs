@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.AspNet.Identity;
 using ProductsStore.BLL.Infrastructure;
 using ProductsStore.BLL.Interfaces;
 using ProductsStore.BLL.Services;
@@ -35,8 +34,6 @@ namespace ProductsStore.WinForms
             container.Register<IUserService, UserService>();
             container.Register<IShipmentService, ShipmentService>();
             container.Register<Main>();
-            //container.Register<Login>();
-            //container.Register<ChangePassword>();
 
             new ServiceModule(container);
         }

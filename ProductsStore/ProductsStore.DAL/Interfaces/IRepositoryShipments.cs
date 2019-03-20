@@ -2,7 +2,6 @@
 using ProductsStore.DAL.Models;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Threading.Tasks;
 
 namespace ProductsStore.DAL.Interfaces

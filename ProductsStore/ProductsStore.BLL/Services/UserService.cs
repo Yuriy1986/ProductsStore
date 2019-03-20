@@ -1,17 +1,12 @@
 ﻿using ProductsStore.BLL.DTO;
 using ProductsStore.DAL.Entities;
-using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
-using System.Security.Claims;
 using ProductsStore.BLL.Interfaces;
 using ProductsStore.BLL.Infrastructure;
 using ProductsStore.DAL.Interfaces;
 using System;
 using System.Linq;
-using System.Security.Principal;
-using ProductsStore.DAL.Repositories;
 using System.Collections.Generic;
-using System.Text;
 using System.Data.Entity;
 
 namespace ProductsStore.BLL.Services
@@ -98,18 +93,18 @@ namespace ProductsStore.BLL.Services
 
         public string Register(DTORegisterViewModel dtoRegisterViewModel)
         {
-            Manager manager = new Manager
-            {
-                Name = dtoRegisterViewModel.Name,
-                Surname = dtoRegisterViewModel.Surname,
-                Patronymic = dtoRegisterViewModel.Patronymic,
-                UserName = dtoRegisterViewModel.Login
-            };
-
             var userCurrent = Database.GetManager(dtoRegisterViewModel.Login);
 
             if (userCurrent == null)
             {
+                Manager manager = new Manager
+                {
+                    Name = dtoRegisterViewModel.Name,
+                    Surname = dtoRegisterViewModel.Surname,
+                    Patronymic = dtoRegisterViewModel.Patronymic,
+                    UserName = dtoRegisterViewModel.Login
+                };
+
                 var user = Database.GetManager(dtoRegisterViewModel.Name, dtoRegisterViewModel.Surname, dtoRegisterViewModel.Patronymic); 
                 if (user != null)
                     return "User with the same Name, Surname, Patronymic already exists.";

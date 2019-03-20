@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-//using ProductsStore.WinForms.Models;
 using ProductsStore.BLL.DTO;
 using ProductsStore.BLL.Interfaces;
-using ProductsStore.BLL.Services;
 
 namespace ProductsStore.WinForms
 {

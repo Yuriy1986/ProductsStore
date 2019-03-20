@@ -3,8 +3,6 @@ using ProductsStore.DAL.Entities;
 using ProductsStore.BLL.Interfaces;
 using ProductsStore.DAL.Interfaces;
 using System.Collections.Generic;
-using System.Data;
-using ProductsStore.DAL.Models;
 using System.Text;
 using System.Data.Entity;
 
