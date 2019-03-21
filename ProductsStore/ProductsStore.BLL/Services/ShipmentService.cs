@@ -87,7 +87,7 @@ namespace ProductsStore.BLL.Services
             if (shipmentCurrent != null)
             {
                 Database.Shipments.DeleteShipment(shipmentCurrent);
-                Database.Shipments.SaveShipment();
+                Database.Shipments.SaveShipmentAsync();
                 return true;
             }
             return false;

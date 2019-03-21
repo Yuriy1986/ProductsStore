@@ -21,7 +21,9 @@ namespace ProductsStore.DAL.Interfaces
 
         Manager GetManager(string name, string surname, string patronymic);
 
-        Task SaveUser(Manager userCurrent, EntityState state);
+        Task SaveUserAsync(Manager userCurrent, EntityState state);
+
+        void SaveUser(Manager userCurrent, EntityState state);
 
         void DeleteUser(Manager userCurrent);
     }

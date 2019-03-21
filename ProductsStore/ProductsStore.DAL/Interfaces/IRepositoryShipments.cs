@@ -14,7 +14,7 @@ namespace ProductsStore.DAL.Interfaces
 
         ModelShipments CreateShipment(Shipment shipment, Manager userCurrent);
 
-        Task SaveShipment();
+        Task SaveShipmentAsync();
 
         void DeleteShipment(Shipment shipmentCurrent);
 

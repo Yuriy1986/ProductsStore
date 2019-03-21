@@ -1,6 +1,7 @@
 ﻿using System;
 using ProductsStore.BLL.DTO;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ProductsStore.BLL.Interfaces
 {
@@ -10,7 +11,7 @@ namespace ProductsStore.BLL.Interfaces
         void CreateAdmin();
 
         IEnumerable<string> GetAllLogins();
-        
+
         string Login(DTOLoginViewModel dtoLoginViewModel);
 
         string ChangePassword(DTOChangePasswordViewModel dtoChangePasswordViewModel);

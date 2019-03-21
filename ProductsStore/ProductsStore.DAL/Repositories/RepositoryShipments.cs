@@ -46,7 +46,7 @@ namespace ProductsStore.DAL.Repositories
             return modelShipments;
         }
 
-        public async Task SaveShipment()
+        public async Task SaveShipmentAsync()
         {
             await db.SaveChangesAsync();
         }

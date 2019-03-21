@@ -7,9 +7,9 @@ using System;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Data.Entity;
-using System.Data.SqlClient;
 using System.Collections.Generic;
 using Microsoft.AspNet.Identity;
+using System.Configuration;
 
 namespace ProductsStore.DAL.Repositories
 {
@@ -25,15 +25,13 @@ namespace ProductsStore.DAL.Repositories
 
         public UnitOfWork()
         {
-            SqlConnectionStringBuilder connection = new SqlConnectionStringBuilder
-            {
-                DataSource = @"(localdb)\MSSQLLocalDB",
-                MultipleActiveResultSets = true,
-                InitialCatalog = "ShipmentsStore",
-                IntegratedSecurity = true
-            };
+            string root = Environment.CurrentDirectory;
+            root = root.Replace(@"\bin\Debug", @"\App_Data");
 
-            db = new ApplicationDbContext(connection.ConnectionString);
+            string connection = ConfigurationManager.ConnectionStrings["DBConnection"].ConnectionString;
+            connection = connection.Replace("DataDirectory", root);
+
+            db = new ApplicationDbContext(connection);
             UserManager = new ApplicationUserManager(new UserStore<Manager>(db));
             RoleManager = new ApplicationRoleManager(new RoleStore<IdentityRole>(db));
             // Disable password reliability checking (Password reliability checking in BLL).
@@ -66,11 +64,18 @@ namespace ProductsStore.DAL.Repositories
             return db.Users.FirstOrDefault(x => x.Name == name && x.Surname == surname && x.Patronymic == patronymic);
         }
 
-        public async Task SaveUser(Manager userCurrent, EntityState state)
+        public async Task SaveUserAsync(Manager userCurrent, EntityState state)
         {
             db.Entry(userCurrent).State = state;
             await db.SaveChangesAsync();
         }
+
+        public void SaveUser(Manager userCurrent, EntityState state)
+        {
+            db.Entry(userCurrent).State = state;
+            db.SaveChanges();
+        }
+
 
         public void DeleteUser(Manager userCurrent)
         {

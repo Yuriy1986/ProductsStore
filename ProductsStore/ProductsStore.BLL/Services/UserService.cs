@@ -8,6 +8,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Threading.Tasks;
 
 namespace ProductsStore.BLL.Services
 {
@@ -65,6 +66,7 @@ namespace ProductsStore.BLL.Services
                     userCurrent.AccessFailedCount--;
                     if (userCurrent.AccessFailedCount == 0)
                         userCurrent.LockoutEndDateUtc = DateTime.Parse("01-01-2999");
+
                     Database.SaveUser(userCurrent, EntityState.Modified);
                     return "Login or password incorrect. Input attempts: " + userCurrent.AccessFailedCount;
                 }
@@ -105,7 +107,7 @@ namespace ProductsStore.BLL.Services
                     UserName = dtoRegisterViewModel.Login
                 };
 
-                var user = Database.GetManager(dtoRegisterViewModel.Name, dtoRegisterViewModel.Surname, dtoRegisterViewModel.Patronymic); 
+                var user = Database.GetManager(dtoRegisterViewModel.Name, dtoRegisterViewModel.Surname, dtoRegisterViewModel.Patronymic);
                 if (user != null)
                     return "User with the same Name, Surname, Patronymic already exists.";
 
@@ -137,7 +139,7 @@ namespace ProductsStore.BLL.Services
                     Database.UserManager.AddPassword(userCurrent.Id, dtoChangePasswordAdminViewModel.Password);
                     userCurrent.AccessFailedCount = 3;
                     userCurrent.LockoutEndDateUtc = null;
-                    Database.SaveUser(userCurrent, EntityState.Modified);
+                    Database.SaveUserAsync(userCurrent, EntityState.Modified);
                     return null;
                 }
             }
@@ -196,7 +198,7 @@ namespace ProductsStore.BLL.Services
                     Database.UserManager.RemoveFromRole(userCurrent.Id, roleOld);
                     Database.UserManager.AddToRole(userCurrent.Id, dtoEditViewModel.Role);
                 }
-                Database.SaveUser(userCurrent, EntityState.Modified);
+                Database.SaveUserAsync(userCurrent, EntityState.Modified);
                 return null;
             }
             return "Close this window and reset program.";
@@ -207,18 +209,18 @@ namespace ProductsStore.BLL.Services
             var userCurrent = Database.GetManager(login);
             if (userCurrent != null)
             {
-                // If mamager maked shipments.
+                // If manager maked shipments.
                 if (Database.Shipments.GetShipment(login) != null)
                 {
                     userCurrent.Deleted = true;
-                    Database.SaveUser(userCurrent, EntityState.Modified);
+                    Database.SaveUserAsync(userCurrent, EntityState.Modified);
                     return "Manager got value deleted in database (manager maked shipments) .";
                 }
                 // If mamager didn`t make shipments.
                 else
                 {
                     Database.DeleteUser(userCurrent);
-                    Database.SaveUser(userCurrent, EntityState.Modified);
+                    Database.SaveUserAsync(userCurrent, EntityState.Deleted);
                     return "Manager deleted in database (manager didn`t make shipments).";
                 }
             }

@@ -96,28 +96,34 @@ namespace ProductsStore.WinForms
                 ShipmentsGrid.DataSource = null;
                 ShipmentsGrid.DataSource = shipmentsGridItems;
                 SetupGrid();
-                ShipmentsGrid.CurrentCell = ShipmentsGrid.Rows[ShipmentsGrid.Rows.Count-1].Cells["Sum"];
+                if (ShipmentsGrid.RowCount == 1)
+                    UpdateShipmentsButton.PerformClick();
+                ShipmentsGrid.CurrentCell = ShipmentsGrid.Rows[ShipmentsGrid.RowCount - 1].Cells["Sum"];
             }
         }
 
         private void DeleteShipmentButton_Click(object sender, EventArgs e)
         {
-            // Delete shipment can only owner (manager).
-            if (ShipmentsGrid.CurrentRow.Cells["Login"].Value.ToString() == LoginUser)
+            if (ShipmentsGrid.RowCount != 0)
             {
-                DialogResult result = MessageBox.Show("Are you sure you want to delete shipment", "", MessageBoxButtons.OKCancel);
-                if (result == DialogResult.OK)
+                // Delete shipment can only owner (manager).
+                if (ShipmentsGrid.CurrentRow.Cells["Login"].Value.ToString() == LoginUser)
                 {
-                    int idCurrent = int.Parse(ShipmentsGrid.CurrentRow.Cells["Id"].Value.ToString());
-                    if (ShipmentService.DeleteShipment(idCurrent))
+                    DialogResult result = MessageBox.Show("Are you sure you want to delete shipment", "", MessageBoxButtons.OKCancel);
+                    if (result == DialogResult.OK)
                     {
-                        var shipmentsGridItems = (List<DTOShipmentsViewModel>)ShipmentsGrid.DataSource;
-                        shipmentsGridItems.RemoveAt(shipmentsGridItems.FindIndex(x => x.Id == idCurrent));
-                        ShipmentsGrid.DataSource = null;
-                        ShipmentsGrid.DataSource = shipmentsGridItems;
-                        SetupGrid();
-                        ShipmentsGrid.CurrentCell = ShipmentsGrid.Rows[0].Cells["Sum"];
-                        MessageBox.Show("Shipment deleted");
+                        int idCurrent = int.Parse(ShipmentsGrid.CurrentRow.Cells["Id"].Value.ToString());
+                        if (ShipmentService.DeleteShipment(idCurrent))
+                        {
+                            var shipmentsGridItems = (List<DTOShipmentsViewModel>)ShipmentsGrid.DataSource;
+                            shipmentsGridItems.RemoveAt(shipmentsGridItems.FindIndex(x => x.Id == idCurrent));
+                            ShipmentsGrid.DataSource = null;
+                            ShipmentsGrid.DataSource = shipmentsGridItems;
+                            SetupGrid();
+                            if (ShipmentsGrid.RowCount != 0)
+                                ShipmentsGrid.CurrentCell = ShipmentsGrid.Rows[0].Cells["Sum"];
+                            MessageBox.Show("Shipment deleted");
+                        }
                     }
                 }
             }
@@ -125,10 +131,13 @@ namespace ProductsStore.WinForms
 
         private void UpdateShipments_Click(object sender, EventArgs e)
         {
-            ShipmentsGrid.DataSource = null;
-            ShipmentsGrid.DataSource = ShipmentService.GetShipments();
-            SetupGrid();
-            ShipmentsGrid.CurrentCell = ShipmentsGrid.Rows[0].Cells["Sum"];
+            if (ShipmentsGrid.RowCount != 0)
+            {
+                ShipmentsGrid.DataSource = null;
+                ShipmentsGrid.DataSource = ShipmentService.GetShipments();
+                SetupGrid();
+                ShipmentsGrid.CurrentCell = ShipmentsGrid.Rows[0].Cells["Sum"];
+            }
         }
 
         #region Groupbox
@@ -159,19 +168,22 @@ namespace ProductsStore.WinForms
 
         private void Grouping()
         {
-            if (DateCheckBox.Checked || CompanyCheckBox.Checked || CityCheckBox.Checked || CountryCheckBox.Checked || SurnameCheckBox.Checked)
+            if (ShipmentsGrid.RowCount != 0)
             {
-                GroupButton.Visible = true;
-                CancelGroupButton.Visible = true;
-                MainPanel.Enabled = false;
-            }
-            else
-            {
-                GroupButton.Visible = false;
-                CancelGroupButton.Visible = false;
-                MainPanel.Enabled = true;
+                if (DateCheckBox.Checked || CompanyCheckBox.Checked || CityCheckBox.Checked || CountryCheckBox.Checked || SurnameCheckBox.Checked)
+                {
+                    GroupButton.Visible = true;
+                    CancelGroupButton.Visible = true;
+                    MainPanel.Enabled = false;
+                }
+                else
+                {
+                    GroupButton.Visible = false;
+                    CancelGroupButton.Visible = false;
+                    MainPanel.Enabled = true;
 
-                UpdateShipmentsButton.PerformClick();
+                    UpdateShipmentsButton.PerformClick();
+                }
             }
         }
 
